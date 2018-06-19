@@ -75,6 +75,8 @@ class User extends Authenticatable
             {
                 $user->roles()->detach();
             }
+
+            $user->memberships()->delete();
         });
     }
 
@@ -93,4 +95,15 @@ class User extends Authenticatable
         $role = $this->roles->where('name', $role_name);
         return (count($role) > 0);
     }
+
+    public function memberships()
+    {
+        return $this->hasMany(\App\Membership::class);
+    }
+
+    public function newAvatarFileName()
+    {
+        return $this->newUuid() . '.jpg';
+    }
+
 }

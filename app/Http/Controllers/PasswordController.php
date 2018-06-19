@@ -35,6 +35,6 @@ class PasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         
-        return redirect()->route('profile.index')->with("success", "Your password was changed!");
+        return redirect()->route('profile.show', $user->uuid)->with("success", "Your password was changed!");
     }
 }

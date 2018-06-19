@@ -39,4 +39,16 @@ trait UsersAdmins
             return \App\Role::find($id);
         }
     }
+
+    private function fetchLanguage($id = null)
+    {
+        if($id == null)
+        {
+            return factory(\App\Language::class)->create();
+        }
+        else
+        {
+            return \App\Language::find($id);
+        }
+    }
 }

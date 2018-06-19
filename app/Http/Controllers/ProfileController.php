@@ -10,14 +10,14 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return $this->show(auth()->user()->uuid);
+        return redirect(route('profile.show', [auth()->user()->uuid]));
     }
 
     public function show($uuid)
     {
         $user = \App\User::withUuid($uuid)->firstOrFail();
         
-        return view('profile.show')->with([
+        return view('profile.profile.show')->with([
             'item' => $user
         ]);
     }
@@ -26,7 +26,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         
-        return view('profile.edit')->with([
+        return view('profile.profile.edit')->with([
             'item' => $user
         ]);
     }
@@ -42,10 +42,8 @@ class ProfileController extends Controller
 
         $user->update($request->all());
 
-        return redirect()->route('profile.index')->with([
+        return redirect()->route('profile.show', $user->uuid)->with([
             'success' => 'Your profile was updated!'
         ]);
     }
-
-    
 }
